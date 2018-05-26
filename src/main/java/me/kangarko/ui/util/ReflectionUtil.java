@@ -34,14 +34,13 @@ public class ReflectionUtil {
 
 	static {
 		try {
+			final String packageName = Bukkit.getServer() == null ? "" : Bukkit.getServer().getClass().getPackage().getName();
+			SERVER_VERSION = packageName.substring(packageName.lastIndexOf('.') + 1);
+			SERVER_VERSION_NUM = Integer.parseInt(SERVER_VERSION.split("_")[1]);
+
 			getHandle = getOFCClass("entity.CraftPlayer").getMethod("getHandle");
 			fieldPlayerConnection = getNMSClass("EntityPlayer").getField("playerConnection");
 			sendPacket = getNMSClass("PlayerConnection").getMethod("sendPacket", getNMSClass("Packet"));
-
-			final String packageName = Bukkit.getServer() == null ? "" : Bukkit.getServer().getClass().getPackage().getName();
-			SERVER_VERSION = packageName.substring(packageName.lastIndexOf('.') + 1);
-
-			SERVER_VERSION_NUM = Integer.parseInt(SERVER_VERSION.split("_")[1]);
 
 		} catch (final Throwable t) {
 			System.out.println("Unable to find setup reflection. Plugin will still function.");
@@ -117,9 +116,9 @@ public class ReflectionUtil {
 	private final static Field[] getAllFields(Class<?> cl) {
 		final List<Field> list = new ArrayList<>();
 
-		do {
+		do
 			list.addAll( Arrays.asList( cl.getDeclaredFields() ) );
-		} while ( !(cl = cl.getSuperclass()).isAssignableFrom(Object.class) );
+		while ( !(cl = cl.getSuperclass()).isAssignableFrom(Object.class) );
 
 		return list.toArray( new Field[ list.size() ] );
 	}

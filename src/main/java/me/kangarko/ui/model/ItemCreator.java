@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 import org.apache.commons.lang.Validate;
+import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -97,82 +98,84 @@ public class ItemCreator {
 			Objects.requireNonNull(material, "Material == null!");
 
 		final ItemStack is = item != null ? item.clone() : new ItemStack(material, amount, damage, (byte) (!material.toString().contains("LEATHER") && color != null ? color.getWoolData() : data));
-		final ItemMeta myMeta = meta != null ? meta.clone() : is.getItemMeta();
+		ItemMeta myMeta = meta != null ? meta.clone() : is.getItemMeta();
 
+		myMeta = myMeta != null ? myMeta : Bukkit.getItemFactory().getItemMeta(material);
 		flags = flags == null ? new ArrayList<>() : new ArrayList<>(flags);
 
-		if (color != null && material.toString().contains("LEATHER"))
-			((LeatherArmorMeta) myMeta).setColor(color.getColor());
+		if (myMeta != null) {
+			if (color != null && material.toString().contains("LEATHER"))
+				((LeatherArmorMeta) myMeta).setColor(color.getColor());
 
-		if (glow) {
-			myMeta.addEnchant(Enchantment.DURABILITY, 1, true);
+			if (glow) {
+				myMeta.addEnchant(Enchantment.DURABILITY, 1, true);
 
-			flags.add(CreatorFlag.HIDE_ENCHANTS);
-		}
+				flags.add(CreatorFlag.HIDE_ENCHANTS);
+			}
 
-		if (enchants != null)
-			for (final Enchant ench : enchants)
-				myMeta.addEnchant(ench.getEnchant(), ench.getLevel(), true);
+			if (enchants != null)
+				for (final Enchant ench : enchants)
+					myMeta.addEnchant(ench.getEnchant(), ench.getLevel(), true);
 
-		if (name != null)
-			myMeta.setDisplayName(DesignerUtils.colorize(name));
+			if (name != null)
+				myMeta.setDisplayName(DesignerUtils.colorize(name));
 
-		if (lores != null) {
-			final List<String> coloredLore = new ArrayList<>();
+			if (lores != null) {
+				final List<String> coloredLore = new ArrayList<>();
 
-			lores.forEach((line) -> coloredLore.add(DesignerUtils.colorize("&7" + line)));
-			myMeta.setLore(coloredLore);
-		}
+				lores.forEach((line) -> coloredLore.add(DesignerUtils.colorize("&7" + line)));
+				myMeta.setLore(coloredLore);
+			}
 
-		if (unbreakable != null) {
-			flags.add(CreatorFlag.HIDE_ATTRIBUTES);
-			flags.add(CreatorFlag.HIDE_UNBREAKABLE);
+			if (unbreakable != null) {
+				flags.add(CreatorFlag.HIDE_ATTRIBUTES);
+				flags.add(CreatorFlag.HIDE_UNBREAKABLE);
 
-			try {
-				myMeta.setUnbreakable(true);
-			} catch (final Throwable t) {
 				try {
-					myMeta.spigot().setUnbreakable(true);
-				} catch (final Throwable tt) {
-				} // unsupported
+					myMeta.setUnbreakable(true);
+				} catch (final Throwable t) {
+					try {
+						myMeta.spigot().setUnbreakable(true);
+					} catch (final Throwable tt) {
+					} // unsupported
+				}
 			}
-		}
 
-		if (hideTags)
-			for (final CreatorFlag f : CreatorFlag.values())
-				if (!flags.contains(f))
-					flags.add(f);
+			if (hideTags)
+				for (final CreatorFlag f : CreatorFlag.values())
+					if (!flags.contains(f))
+						flags.add(f);
 
-		if (flags != null)
-			try {
-				final List<org.bukkit.inventory.ItemFlag> f = new ArrayList<>();
+			if (flags != null)
+				try {
+					final List<org.bukkit.inventory.ItemFlag> f = new ArrayList<>();
 
-				for (final CreatorFlag flag : flags)
-					f.add(org.bukkit.inventory.ItemFlag.valueOf(flag.toString()));
+					for (final CreatorFlag flag : flags)
+						f.add(org.bukkit.inventory.ItemFlag.valueOf(flag.toString()));
 
-				myMeta.addItemFlags(f.toArray(new org.bukkit.inventory.ItemFlag[f.size()]));
-			} catch (final Throwable t) {
-			} // unsupported for the current MC version
+					myMeta.addItemFlags(f.toArray(new org.bukkit.inventory.ItemFlag[f.size()]));
+				} catch (final Throwable t) {
+				} // unsupported for the current MC version
 
-		if (monster != null) {
-			Validate.isTrue(myMeta instanceof SpawnEggMeta, "Cannot make monster egg from " + is.getType());
+			if (monster != null) {
+				Validate.isTrue(myMeta instanceof SpawnEggMeta, "Cannot make monster egg from " + is.getType());
 
-			try {
-				((SpawnEggMeta) meta).setSpawnedType(monster);
+				try {
+					((SpawnEggMeta) meta).setSpawnedType(monster);
 
-			} catch (final Error err) {
-				System.out.println("Error creating " + monster + " mob egg from " + is + ". Minecraft incompatible? Got: " + err);
+				} catch (final Error err) {
+					System.out.println("Error creating " + monster + " mob egg from " + is + ". Minecraft incompatible? Got: " + err);
+				}
 			}
-		}
 
-		if (skullOwner != null) {
-			Validate.isTrue(material == Material.SKULL_ITEM, "Material must be SKULL_ITEM");
+			if (skullOwner != null) {
+				Validate.isTrue(material == Material.SKULL_ITEM, "Material must be SKULL_ITEM");
 
-			((SkullMeta) myMeta).setOwner(skullOwner);
-		}
+				((SkullMeta) myMeta).setOwner(skullOwner);
+			}
 
-		if (myMeta != null)
 			is.setItemMeta(myMeta);
+		}
 
 		return is;
 	}
