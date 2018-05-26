@@ -12,7 +12,12 @@ Brief tutorial:
 5. Show the menu to the player by calling Menu#displayTo method! 
 
 ## Installation
-We use Maven to compile and so you need to, to use this library easily.
+We use Maven to compile and so you need to, to use this library easily. See below for a step-by-step tutorial.
+
+Notice: If you are having a builder Ant task, you should head over to /releases page (add it to the URL bar) to download the jar and install it as a plugin to have classes available for testing conditions. Otherwise, always shade the classes directly and ship them with your plugin.
+
+Copyright: All Rights Reserved (C) 2018. Commercial and non-commercial use allowed as long as you provide a clear link on your (sales) page that you are using this library.  
+
 
 1. Place this to your repositories:
 
