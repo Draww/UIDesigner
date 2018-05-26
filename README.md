@@ -21,12 +21,13 @@ We use Maven to compile and so you need to, to use this library easily.
 			<url>https://jitpack.io</url>
 		</repository>
 
-2. Place this to your dependencies (you can replace 1.0.0 with master if things get too outdated):
+2. Place this to your dependencies:
 
 		<dependency>
 			<groupId>com.github.kangarko</groupId>
 			<artifactId>UIDesigner</artifactId>
-			<version>1.0.0</version>
+			<version>master</version>
+			<scope>compile</scope>
 		</dependency>
     
 2. Make sure that the library shades into your final .jar when you compile your plugin. Here is an example of a shade plugin that will do it for you:
