@@ -9,17 +9,19 @@ import me.kangarko.ui.util.DesignerUtils;
 /**
  * An easy way to have special tools (ItemStack-s).
  *
- * MAKE A NEW INSTANCE OF EACH OF YOUR TOOL SOMEWHERE AND CALL IT TO BE REGISTERED
+ * MAKE A NEW INSTANCE OF EACH OF YOUR TOOL SOMEWHERE AND CALL IT TO BE REGISTERED,
+ * OR CALL Tools.register(new YourTool())
  */
 public abstract class Tool {
 
 	protected Tool() {
+		// A workaround to register after each top constructor.
 		new Thread() {
 
 			@Override
 			public void run() {
 				try {
-					Thread.sleep(3);
+					Thread.sleep(5);
 				} catch (final InterruptedException e) {
 				}
 

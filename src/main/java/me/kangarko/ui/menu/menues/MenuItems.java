@@ -12,6 +12,7 @@ import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
+import me.kangarko.ui.menu.MenuButton;
 import me.kangarko.ui.model.Enchant;
 import me.kangarko.ui.model.ItemCreator;
 import me.kangarko.ui.model.ItemCreator.CreatorFlag;
@@ -35,9 +36,14 @@ public abstract class MenuItems extends MenuStandard {
 		this.tools = compile( makeTools() );
 	}
 
+	/**
+	 * Return an array of items from top left corner.
+	 * Accepts: 0 for air, ItemStack, Tool or a MenuButton.
+	 */
 	protected abstract Object[] makeTools();
 
-	protected final List<HaveAbleItem> compile(Object... tools) {
+	// Compile the items in constructors from makeTools method
+	private final List<HaveAbleItem> compile(Object... tools) {
 		final List<HaveAbleItem> list = new ArrayList<>();
 
 		if (tools != null)
@@ -77,6 +83,9 @@ public abstract class MenuItems extends MenuStandard {
 	}
 }
 
+/**
+ * Wraps an ItemStack that the player can have only once.
+ */
 final class HaveAbleItem {
 
 	private final ItemStack item;
@@ -87,6 +96,9 @@ final class HaveAbleItem {
 		if (unparsed != null) {
 			if (unparsed instanceof ItemStack)
 				this.item = (ItemStack) unparsed;
+
+			else if (unparsed instanceof MenuButton)
+				this.item = ((MenuButton)unparsed).getItem();
 
 			else if (unparsed instanceof Tool)
 				this.item = ((Tool)unparsed).getItem();

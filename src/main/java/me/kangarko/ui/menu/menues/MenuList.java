@@ -44,6 +44,9 @@ public abstract class MenuList extends MenuStandard {
 			items.add(MenuButton.makeEmpty());
 	}
 
+	/**
+	 * Return a button with the given name at a certain slot.
+	 */
 	protected abstract MenuButton getListButton(String listName, int listIndex);
 
 	@Override

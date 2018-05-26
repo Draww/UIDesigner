@@ -9,6 +9,8 @@ import me.kangarko.ui.util.DesignerUtils;
 /**
  * Slovak detected, sorry guys!
  *
+ * Do not use, used in the MenuPagges.
+ *
  * @author kangarko
  */
 public class PosuvnikMenu<T> {
@@ -33,7 +35,7 @@ public class PosuvnikMenu<T> {
 			final int dole = velkost_bunky * cislo_strany;
 			final int hore = dole + velkost_bunky;
 
-			for (int index_hodnoty = dole; index_hodnoty < hore; index_hodnoty++) {
+			for (int index_hodnoty = dole; index_hodnoty < hore; index_hodnoty++)
 				if (index_hodnoty < hodnoty.size()) {
 					final T strana = hodnoty.get(index_hodnoty);
 
@@ -41,7 +43,6 @@ public class PosuvnikMenu<T> {
 				}
 
 				else break;
-			}
 
 			strany.put(cislo_strany, hodnoty_v_strane);
 		}

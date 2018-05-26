@@ -43,8 +43,11 @@ public class ButtonReturnBack extends MenuButton {
 				.build().make();
 	}
 
+	/**
+	 * Show the menu to return to, when clicked.
+	 */
 	@Override
-	public final void onClickedInMenu(Player pl, Menu menu, ClickType click) {
+	public void onClickedInMenu(Player pl, Menu menu, ClickType click) {
 		onPreReturnBack();
 
 		if (makeNewInstance)

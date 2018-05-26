@@ -59,8 +59,11 @@ public class ButtonRemove extends MenuButton {
 				.build().make();
 	}
 
+	/**
+	 * Show the remove dialog (a Menu) when clicked.
+	 */
 	@Override
-	public final void onClickedInMenu(Player pl, Menu menu, ClickType click) {
+	public void onClickedInMenu(Player pl, Menu menu, ClickType click) {
 		new MenuDialogRemove(parentMenu, new RemoveConfirmButton()).displayTo(pl);
 	}
 
@@ -88,6 +91,9 @@ public class ButtonRemove extends MenuButton {
 					.build().make();
 		}
 
+		/**
+		 * Close inventory, call the removal listener with the object's name and send the player a message.
+		 */
 		@Override
 		public final void onClickedInMenu(Player pl, Menu menu, ClickType click) {
 			pl.closeInventory();
