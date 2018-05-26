@@ -103,6 +103,8 @@ public abstract class Menu {
 	 */
 	protected Menu() {
 		registor = new OneTimeRunnable(() -> registerFields());
+
+		Objects.requireNonNull(UIDesignerAPI.getPlugin(), "A plugin is using UIDesigner but forgot to call UIDesignerAPI.setPlugin first!");
 	}
 
 	// --------------------------------------------------------------------------------
@@ -127,11 +129,10 @@ public abstract class Menu {
 		{
 			Class<?> lookup = getClass();
 
-			do {
+			do
 				for (final Field f : lookup.getDeclaredFields())
 					registerField(f);
-
-			} while ( Menu.class.isAssignableFrom( (lookup = lookup.getSuperclass()) ) && !Menu.class.equals(lookup) );
+			while ( Menu.class.isAssignableFrom( (lookup = lookup.getSuperclass()) ) && !Menu.class.equals(lookup) );
 		}
 	}
 

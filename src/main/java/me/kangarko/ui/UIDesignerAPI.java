@@ -1,8 +1,6 @@
 package me.kangarko.ui;
 
 import java.util.Objects;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
@@ -49,12 +47,15 @@ public class UIDesignerAPI {
 
 	// Check if the user really registered the plugin.
 	static {
-		new Timer().schedule(new TimerTask() {
+		new Thread() {
 
 			@Override
 			public void run() {
-				Objects.requireNonNull(plugin, "Please call UIDesigner.setPlugin with your plugin first!");
+				try { Thread.sleep(10); } catch (final InterruptedException e) {}
+
+				Objects.requireNonNull(plugin, "A plugin is using UIDesigner but forgot to call UIDesignerAPI.setPlugin first!");
 			}
-		}, 10);
+
+		}.start();
 	}
 }
