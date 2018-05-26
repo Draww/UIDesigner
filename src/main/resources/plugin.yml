@@ -1,0 +1,4 @@
+name: ${project.artifactId}
+main: me.kangarko.ui.UIDesignerPlugin
+version: ${project.version}
+author: kangarko
