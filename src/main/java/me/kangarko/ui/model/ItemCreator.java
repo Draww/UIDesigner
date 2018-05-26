@@ -33,7 +33,7 @@ import me.kangarko.ui.util.DesignerUtils;
 @Builder
 public class ItemCreator {
 
-	private ItemMeta meta;
+	private final ItemMeta meta;
 	private final ItemStack item;
 
 	private final Material material;
@@ -67,21 +67,6 @@ public class ItemCreator {
 
 	private final boolean hideTags;
 	private final boolean glow;
-
-	/**
-	 * Set a skull name for the item (skin heads apply). Your item must have the material SKULL_ITEM!
-	 */
-	public ItemCreator setSkull(String owner) {
-		Validate.isTrue(material != null && material == Material.SKULL_ITEM, "Material must be skull item");
-
-		final ItemStack is = make();
-		final SkullMeta meta = (SkullMeta) is.getItemMeta();
-		meta.setOwner(owner);
-
-		this.meta = meta;
-
-		return this;
-	}
 
 	/**
 	 * Convert this to a button.
