@@ -1,6 +1,16 @@
 # UIDesigner
 Create beautiful menus with buttons in Spigot easily!
 
+## Usage
+Please see upcoming YouTube videos for a complete tutorial.
+
+Brief tutorial:
+1. Set your plugin instance in the class UIDesignerAPI.
+2. Create a new class extending MenuStandard
+3. Create fields MenuButton that are created in the constructor.
+4. Return your fields' item by overwritting getItemAt method in your menu class.
+5. Show the menu to the player by calling Menu#displayTo method! 
+
 ## Installation
 For the time being, you need to download this repository and shade it with your plugin so that our classes are within your plugin's jar. Here's how to do it:
 
