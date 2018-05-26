@@ -12,20 +12,24 @@ Brief tutorial:
 5. Show the menu to the player by calling Menu#displayTo method! 
 
 ## Installation
-For the time being, you need to download this repository and shade it with your plugin so that our classes are within your plugin's jar. Here's how to do it:
+We use Maven to compile and so you need to, to use this library easily.
 
-1. Download this repository.
-2. Import it as a Maven project.
-3. Place this to your dependencies inside your plugin's pom.xml:
+1. Place this to your repositories:
+
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+
+2. Place this to your dependencies (you can replace 1.0.0 with master if things get too outdated):
 
 		<dependency>
-			<groupId>me.kangarko.ui</groupId>
+			<groupId>com.github.kangarko</groupId>
 			<artifactId>UIDesigner</artifactId>
 			<version>1.0.0</version>
-			<scope>compile</scope>
 		</dependency>
     
-4. Make sure that the library shades into your final .jar when you compile your plugin. Here is an example of a shade plugin that will do it for you:
+2. Make sure that the library shades into your final .jar when you compile your plugin. Here is an example of a shade plugin that will do it for you:
 
 IF YOU ALREADY HAVE A SHADE PLUGIN, ONLY USE THE RELOCATION SECTION FROM BELOW.
 
