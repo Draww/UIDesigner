@@ -104,8 +104,9 @@ public class ItemCreator {
 		flags = flags == null ? new ArrayList<>() : new ArrayList<>(flags);
 
 		if (myMeta != null) {
-			if (color != null && material.toString().contains("LEATHER"))
-				((LeatherArmorMeta) myMeta).setColor(color.getColor());
+			if (color != null)
+				if (material.toString().contains("LEATHER"))
+					((LeatherArmorMeta) myMeta).setColor(color.getColor());
 
 			if (glow) {
 				myMeta.addEnchant(Enchantment.DURABILITY, 1, true);
@@ -161,7 +162,7 @@ public class ItemCreator {
 				Validate.isTrue(myMeta instanceof SpawnEggMeta, "Cannot make monster egg from " + is.getType());
 
 				try {
-					((SpawnEggMeta) meta).setSpawnedType(monster);
+					((SpawnEggMeta) myMeta).setSpawnedType(monster);
 
 				} catch (final Error err) {
 					System.out.println("Error creating " + monster + " mob egg from " + is + ". Minecraft incompatible? Got: " + err);
