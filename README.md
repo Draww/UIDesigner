@@ -1,6 +1,8 @@
 ![Logo](https://i.imgur.com/GEyZoJV.png)
 
-Create beautiful menus with buttons in Spigot easily!
+
+
+<p align="center"><h2>Create beautiful menus with buttons in Spigot easily!</h2></p>
 
 ## Usage
 Please see upcoming YouTube videos for a complete tutorial.
