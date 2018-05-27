@@ -1,4 +1,5 @@
-# UIDesigner
+![Logo](https://i.imgur.com/GEyZoJV.png)
+
 Create beautiful menus with buttons in Spigot easily!
 
 ## Usage
